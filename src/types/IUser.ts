@@ -1,4 +1,5 @@
 export default interface IUser {
+  gender: string;
   name: {
     title: string;
     first: string;
@@ -17,6 +18,7 @@ export default interface IUser {
   email: string;
   dob: {
     date: string;
+    age: number;
   }
   phone: string;
   cell: string;

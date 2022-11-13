@@ -7,11 +7,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Button } from "@mui/material";
 
 function App() {
   // state to hold the user data
   const [userData, setUserData] = useState<IUser[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
+  const [favoriteUsers, setFavoriteUsers] = useState<IUser[]>([]);
 
   // useEffect to fetch from user API https://randomuser.me/
   useEffect(() => {
@@ -82,12 +84,9 @@ function App() {
     }
     // Filter by state
     if (stateFilter !== "0") {
-      console.log("State Filter", stateFilter);
       filteredUsers = filteredUsers.filter((user) => {
-        console.log(user.location.state.charAt(0));
         const lowerBound = filterFirstLetter[Number(stateFilter)].charAt(0);
         const upperBound = filterFirstLetter[Number(stateFilter)].charAt(2);
-        console.log(lowerBound, upperBound);
         return (
           user.location.state.charAt(0).toUpperCase() >= lowerBound &&
           user.location.state.charAt(0).toUpperCase() <= upperBound
@@ -105,7 +104,38 @@ function App() {
       });
     }
     setFilteredUsers(filteredUsers);
-  }, [firstNameFilter, lastNameFilter, stateFilter, firstNameSort, userData]);
+  }, [
+    firstNameFilter,
+    lastNameFilter,
+    stateFilter,
+    firstNameSort,
+    userData,
+    favoriteUsers,
+  ]);
+
+  const calculateAverageAge = () => {
+    if (favoriteUsers.length === 0) {
+      return 0;
+    }
+    let totalAge = 0;
+    favoriteUsers.forEach((user) => {
+      totalAge += user.dob.age;
+    });
+    return totalAge / favoriteUsers.length;
+  };
+
+  const calculateTotalFemales = () => {
+    if (favoriteUsers.length === 0) {
+      return 0;
+    }
+    let totalFemales = 0;
+    favoriteUsers.forEach((user) => {
+      if (user.gender === "female") {
+        totalFemales++;
+      }
+    });
+    return totalFemales;
+  };
 
   return (
     <>
@@ -116,84 +146,127 @@ function App() {
       {!userData ? (
         <div>Loading...</div>
       ) : (
-        <div className="app-container">
-          <div className="button-container">
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-              <InputLabel id="demo-simple-select-standard-label">
-                Filter by First Name
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={firstNameFilter}
-                onChange={handleFirstNameFilter}
-                label="First Name Filter"
-              >
-                <MenuItem value={0}>All</MenuItem>
-                <MenuItem value={1}>A-F</MenuItem>
-                <MenuItem value={2}>G-L</MenuItem>
-                <MenuItem value={3}>M-R</MenuItem>
-                <MenuItem value={4}>S-Z</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-              <InputLabel id="demo-simple-select-standard-label">
-                Filter by Last Name
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={lastNameFilter}
-                onChange={handleLastNameFilter}
-                label="Last Name Filter"
-              >
-                <MenuItem value={0}>All</MenuItem>
-                <MenuItem value={1}>A-F</MenuItem>
-                <MenuItem value={2}>G-L</MenuItem>
-                <MenuItem value={3}>M-R</MenuItem>
-                <MenuItem value={4}>S-Z</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-              <InputLabel id="demo-simple-select-standard-label">
-                Filter by State
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={stateFilter}
-                onChange={handleStateFilter}
-                label="State Filter"
-              >
-                <MenuItem value={0}>All</MenuItem>
-                <MenuItem value={1}>A-F</MenuItem>
-                <MenuItem value={2}>G-L</MenuItem>
-                <MenuItem value={3}>M-R</MenuItem>
-                <MenuItem value={4}>S-Z</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-              <InputLabel id="demo-simple-select-standard-label">
-                Sort by First Name
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={firstNameSort}
-                onChange={handleFirstNameSort}
-                label="Sort by First Name"
-              >
-                <MenuItem value={0}>None</MenuItem>
-                <MenuItem value={1}>Ascending</MenuItem>
-                <MenuItem value={2}>Descending</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
+        <div className="button-container">
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+            <InputLabel id="demo-simple-select-standard-label">
+              Filter by First Name
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={firstNameFilter}
+              onChange={handleFirstNameFilter}
+              label="First Name Filter"
+            >
+              <MenuItem value={0}>All</MenuItem>
+              <MenuItem value={1}>A-F</MenuItem>
+              <MenuItem value={2}>G-L</MenuItem>
+              <MenuItem value={3}>M-R</MenuItem>
+              <MenuItem value={4}>S-Z</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+            <InputLabel id="demo-simple-select-standard-label">
+              Filter by Last Name
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={lastNameFilter}
+              onChange={handleLastNameFilter}
+              label="Last Name Filter"
+            >
+              <MenuItem value={0}>All</MenuItem>
+              <MenuItem value={1}>A-F</MenuItem>
+              <MenuItem value={2}>G-L</MenuItem>
+              <MenuItem value={3}>M-R</MenuItem>
+              <MenuItem value={4}>S-Z</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+            <InputLabel id="demo-simple-select-standard-label">
+              Filter by State
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={stateFilter}
+              onChange={handleStateFilter}
+              label="State Filter"
+            >
+              <MenuItem value={0}>All</MenuItem>
+              <MenuItem value={1}>A-F</MenuItem>
+              <MenuItem value={2}>G-L</MenuItem>
+              <MenuItem value={3}>M-R</MenuItem>
+              <MenuItem value={4}>S-Z</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+            <InputLabel id="demo-simple-select-standard-label">
+              Sort by First Name
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={firstNameSort}
+              onChange={handleFirstNameSort}
+              label="Sort by First Name"
+            >
+              <MenuItem value={0}>None</MenuItem>
+              <MenuItem value={1}>Ascending</MenuItem>
+              <MenuItem value={2}>Descending</MenuItem>
+            </Select>
+          </FormControl>
 
-          <div className="user-container">
-            {filteredUsers.map((user, index) => (
-              <User user={user} key={index} />
-            ))}
+          <div className="app-container">
+            <div className="user-container">
+              <h1>Contact List</h1>
+              <div className="user-item-container">
+                {filteredUsers.map((user, index) => (
+                  <User
+                    user={user}
+                    setFavoriteUsers={setFavoriteUsers}
+                    favorite={false}
+                    key={index}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="favorites-container">
+              <h1 className="favorites-container-header">Favorites</h1>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setFavoriteUsers([]);
+                }}
+              >
+                Clear Favorites
+              </Button>
+              <div>
+                <h2>Aggregated Data</h2>
+                Total Favorites: {favoriteUsers.length}
+                <br />
+                Total Users: {userData.length}
+                <br />
+                Average Age of Favorites: {calculateAverageAge()}
+                <br />
+                Total Number of Females in Favorites: {calculateTotalFemales()}
+                <br />
+                Total Number of Males in Favorites:{" "}
+                {favoriteUsers.length - calculateTotalFemales()}
+              </div>
+              <div className="favorite-item-container">
+                {favoriteUsers.map((user, index) => (
+                  <User
+                    user={user}
+                    setFavoriteUsers={setFavoriteUsers}
+                    favorite={true}
+                    key={index}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}

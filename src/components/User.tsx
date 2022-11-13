@@ -6,12 +6,12 @@ import { Button } from "@mui/material";
 
 interface Props {
   user: IUser;
-  // onClick: (song: Song) => void;
-  // label: string;
+  setFavoriteUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
+  favorite: boolean;
 }
 
-export default function User({ user }: Props) {
-  const [isFavorite, setIsFavorite] = React.useState(false);
+export default function User({ user, setFavoriteUsers, favorite }: Props) {
+  const [isFavorite, setIsFavorite] = React.useState(favorite);
 
   const toggleFavorite = () => setIsFavorite((favorite) => !favorite);
 
@@ -39,8 +39,22 @@ export default function User({ user }: Props) {
     return `${stringMonth} ${day}, ${year}`;
   };
 
+  const handleClick = () => {
+    // toggleFavorite();
+    setFavoriteUsers((favoriteUsers) => {
+      if (favoriteUsers.includes(user)) {
+        // remove user from favorites
+        return favoriteUsers.filter((favoriteUser) => favoriteUser !== user);
+      } else {
+        // add user to favorites
+        return [...favoriteUsers, user];
+      }
+    });
+  };
+
   return (
-    <div className="user-card">
+    // if favorite add a class to the div
+    <div className={`user-card ${isFavorite ? "favorite" : ""}`}>
       <img src={user.picture.large} alt="user" />
       <div className="user-text-container">
         <h1>
@@ -65,14 +79,18 @@ export default function User({ user }: Props) {
           <br />
           {user.location.country}, {user.location.postcode}
         </p>
-        <Button variant="contained" onClick={toggleFavorite}>
-          Add to Favorites
-          {isFavorite ? (
-            <FavoriteIcon className="favorite-icon" />
-          ) : (
+
+        {!isFavorite ? (
+          <Button variant="contained" onClick={handleClick}>
+            Add to Favorites
             <FavoriteBorderIcon className="favorite-icon" />
-          )}
-        </Button>
+          </Button>
+        ) : (
+          <Button variant="contained" onClick={handleClick}>
+            Remove from Favorites
+            <FavoriteIcon className="favorite-icon" />
+          </Button>
+        )}
       </div>
     </div>
   );
