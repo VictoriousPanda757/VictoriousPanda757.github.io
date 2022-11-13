@@ -1,34 +1,204 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import "./App.css";
+import User from "./components/User";
+import IUser from "./types/IUser";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // state to hold the user data
+  const [userData, setUserData] = useState<IUser[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
+
+  // useEffect to fetch from user API https://randomuser.me/
+  useEffect(() => {
+    fetch("https://randomuser.me/api/?results=30&nat=us")
+      .then((response) => response.json())
+      .then((data) => setUserData(data.results));
+  }, []);
+
+  // array to hold the filter values
+  const filterFirstLetter: string[] = ["All", "A-F", "G-L", "M-R", "S-Z"];
+
+  // state to hold the filter values
+  const [firstNameFilter, setFirstNameFilter] = useState<string>("0");
+  const [lastNameFilter, setLastNameFilter] = useState<string>("0");
+  const [stateFilter, setStateFilter] = useState<string>("0");
+
+  // state to hold the sort values
+  const [firstNameSort, setFirstNameSort] = useState<string>("0");
+
+  // functions to handle form changes
+  const handleFirstNameFilter = (event: SelectChangeEvent) => {
+    setFirstNameFilter(event.target.value);
+  };
+  const handleLastNameFilter = (event: SelectChangeEvent) => {
+    setLastNameFilter(event.target.value);
+  };
+  const handleStateFilter = (event: SelectChangeEvent) => {
+    setStateFilter(event.target.value);
+  };
+  const handleFirstNameSort = (event: SelectChangeEvent) => {
+    setFirstNameSort(event.target.value);
+  };
+
+  const delay = (ms: any) => new Promise((res) => setTimeout(res, ms));
+
+  // useEffect to filter the user data based on filtering and sorting criteria
+  useEffect(() => {
+    const waitForAPI = async () => {
+      await delay(1000);
+    };
+    waitForAPI();
+    let filteredUsers: IUser[] = [...userData];
+    if (!userData.length) {
+      console.log("Function returned");
+      return;
+    }
+    // Filter by first name
+    if (firstNameFilter !== "0") {
+      filteredUsers = filteredUsers.filter((user) => {
+        const lowerBound = filterFirstLetter[Number(firstNameFilter)].charAt(0);
+        const upperBound = filterFirstLetter[Number(firstNameFilter)].charAt(2);
+        return (
+          user.name.first.charAt(0).toUpperCase() >= lowerBound &&
+          user.name.first.charAt(0).toUpperCase() <= upperBound
+        );
+      });
+    }
+    // Filter by last name
+    if (lastNameFilter !== "0") {
+      filteredUsers = filteredUsers.filter((user) => {
+        const lowerBound = filterFirstLetter[Number(lastNameFilter)].charAt(0);
+        const upperBound = filterFirstLetter[Number(lastNameFilter)].charAt(2);
+        return (
+          user.name.last.charAt(0).toUpperCase() >= lowerBound &&
+          user.name.last.charAt(0).toUpperCase() <= upperBound
+        );
+      });
+    }
+    // Filter by state
+    if (stateFilter !== "0") {
+      console.log("State Filter", stateFilter);
+      filteredUsers = filteredUsers.filter((user) => {
+        console.log(user.location.state.charAt(0));
+        const lowerBound = filterFirstLetter[Number(stateFilter)].charAt(0);
+        const upperBound = filterFirstLetter[Number(stateFilter)].charAt(2);
+        console.log(lowerBound, upperBound);
+        return (
+          user.location.state.charAt(0).toUpperCase() >= lowerBound &&
+          user.location.state.charAt(0).toUpperCase() <= upperBound
+        );
+      });
+    }
+    // Sort by first name
+    if (Number(firstNameSort) !== 0) {
+      filteredUsers = filteredUsers.sort((a, b) => {
+        if (Number(firstNameSort) === 1) {
+          return a.name.first > b.name.first ? 1 : -1;
+        } else {
+          return a.name.first < b.name.first ? 1 : -1;
+        }
+      });
+    }
+    setFilteredUsers(filteredUsers);
+  }, [firstNameFilter, lastNameFilter, stateFilter, firstNameSort, userData]);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <>
+      <div className="ribbon">
+        <img src="contacts-icon-bg.png" className="contacts-logo" />
+        <span>MyContacts</span>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+      {!userData ? (
+        <div>Loading...</div>
+      ) : (
+        <div className="app-container">
+          <div className="button-container">
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+              <InputLabel id="demo-simple-select-standard-label">
+                Filter by First Name
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={firstNameFilter}
+                onChange={handleFirstNameFilter}
+                label="First Name Filter"
+              >
+                <MenuItem value={0}>All</MenuItem>
+                <MenuItem value={1}>A-F</MenuItem>
+                <MenuItem value={2}>G-L</MenuItem>
+                <MenuItem value={3}>M-R</MenuItem>
+                <MenuItem value={4}>S-Z</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+              <InputLabel id="demo-simple-select-standard-label">
+                Filter by Last Name
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={lastNameFilter}
+                onChange={handleLastNameFilter}
+                label="Last Name Filter"
+              >
+                <MenuItem value={0}>All</MenuItem>
+                <MenuItem value={1}>A-F</MenuItem>
+                <MenuItem value={2}>G-L</MenuItem>
+                <MenuItem value={3}>M-R</MenuItem>
+                <MenuItem value={4}>S-Z</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+              <InputLabel id="demo-simple-select-standard-label">
+                Filter by State
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={stateFilter}
+                onChange={handleStateFilter}
+                label="State Filter"
+              >
+                <MenuItem value={0}>All</MenuItem>
+                <MenuItem value={1}>A-F</MenuItem>
+                <MenuItem value={2}>G-L</MenuItem>
+                <MenuItem value={3}>M-R</MenuItem>
+                <MenuItem value={4}>S-Z</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+              <InputLabel id="demo-simple-select-standard-label">
+                Sort by First Name
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={firstNameSort}
+                onChange={handleFirstNameSort}
+                label="Sort by First Name"
+              >
+                <MenuItem value={0}>None</MenuItem>
+                <MenuItem value={1}>Ascending</MenuItem>
+                <MenuItem value={2}>Descending</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+
+          <div className="user-container">
+            {filteredUsers.map((user, index) => (
+              <User user={user} key={index} />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
 
-export default App
+export default App;

@@ -1,41 +1,86 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  /* max-width: 1280px; */
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
   text-align: center;
+  background-color: #ebebeb;
+  /* color: #fff; */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
+.ribbon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.9);
+  height: 4rem;
+  /* padding: 0 1em; */
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  color: white;
+  /* text-transform: lowercase; */
+  /* font-family: "Inknut Antiqua, serif"; */
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(
+    269.84deg,
+    rgb(123, 122, 225) -4.01%,
+    rgb(6, 10, 59) 23.71%,
+    rgb(189, 17, 104) 50.42%,
+    rgb(80, 206, 227) 92.75%
+  );
 }
 
-.read-the-docs {
-  color: #888;
+.contacts-logo {
+  height: 3rem;
+}
+
+.app-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-container {
+  padding-top: 5rem;
+}
+
+.user-container {
+  padding-top: 2rem;
+  min-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5rem;
+  flex-wrap: wrap;
+}
+
+/* User Card Component */
+.user-card {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px #ccc;
+}
+
+.user-text-container {
+  background-color: #fff;
+}
+
+.user-card h1 {
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+.user-card p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
 }
