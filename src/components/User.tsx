@@ -1,5 +1,8 @@
 import React from "react";
 import IUser from "../types/IUser";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { Button } from "@mui/material";
 
 interface Props {
   user: IUser;
@@ -8,6 +11,10 @@ interface Props {
 }
 
 export default function User({ user }: Props) {
+  const [isFavorite, setIsFavorite] = React.useState(false);
+
+  const toggleFavorite = () => setIsFavorite((favorite) => !favorite);
+
   /**
    * Function to get the month as a string from the month number
    * @param monthNumber the month as a number
@@ -58,6 +65,14 @@ export default function User({ user }: Props) {
           <br />
           {user.location.country}, {user.location.postcode}
         </p>
+        <Button variant="contained" onClick={toggleFavorite}>
+          Add to Favorites
+          {isFavorite ? (
+            <FavoriteIcon className="favorite-icon" />
+          ) : (
+            <FavoriteBorderIcon className="favorite-icon" />
+          )}
+        </Button>
       </div>
     </div>
   );
