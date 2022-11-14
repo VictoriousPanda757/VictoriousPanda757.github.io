@@ -26,11 +26,15 @@ From a design perspective, I used Material UI as a UI framework to provide users
 
 The entrypoint into the program is the `App` component (technically the `index.html` but the `App` component is rendered at the root of the DOM). The `App` component then fetches the data from the API using an useEffect which is called when the component first mounts. The user data is then stored as an Array of IUsers in a state variable. `IUsers` is a type interface that is defined in the `types` directory that contains the properties of a user. The `App` component then maps over the Array of IUsers and renders a `User` component for each user. The `User` component is a functional component that takes in the user along with other fields as props, and uses the user to build the contact card that is displayed on the website.
 
+The aggregator is also a separate component called `Favorites`. The `Favorites` component is a functional component that takes in an array of favorite users, a setter to set the favorite users, and an array of all users as props. These props are then used to calculate the aggregated information and to build the favorite section of the website.
+
 The CSS for the entire application is located in the App.css file.
 
 ### How Data is Passed Down Through Components
 
 Data is passed down through components as props from the parent to the child. The `App` component (the parent) passes the user, an array of favorite users, and a setter that sets the favorite users array to the `User` component (the child). In the `User` component, the props are then destructured and used to build the contact card. The user that is passed down is of type `IUser`, which is an interface that is defined in the `types` directory. Some of the fields of an IUser is a JSON, so further indexing is required to access certain fields.
+
+The `App` component also passes information down to the `Favorites` component in a similar fashion to build the aggregated favorite section of the website.
 
 ### How the User Triggers State Changes
 
