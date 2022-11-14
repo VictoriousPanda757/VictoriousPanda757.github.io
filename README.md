@@ -28,7 +28,7 @@ The entrypoint into the program is the `App` component (technically the `index.h
 
 The aggregator is also a separate component called `Favorites`. The `Favorites` component is a functional component that takes in an array of favorite users, a setter to set the favorite users, and an array of all users as props. These props are then used to calculate the aggregated information and to build the favorite section of the website.
 
-The CSS for the entire application is located in the App.css file.
+The CSS for the entire application is located in the `App.css` file.
 
 ### How Data is Passed Down Through Components
 
