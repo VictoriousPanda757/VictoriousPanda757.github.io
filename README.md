@@ -2,11 +2,11 @@
 
 ### Link to Deployed Website
 
-`https://VictoriousPanda757.github.io`
+[https://VictoriousPanda757.github.io](https://VictoriousPanda757.github.io)
 
 ### API Used
 
-`https://randomuser.me/`
+[https://randomuser.me/](https://randomuser.me/)
 
 ### Goal and Value of the Application
 
