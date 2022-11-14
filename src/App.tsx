@@ -106,6 +106,7 @@ function App() {
     favoriteUsers,
   ]);
 
+  // function to calculate the total age of all users added to favorites list
   const calculateTotalAge = () => {
     if (favoriteUsers.length === 0) {
       return 0;
@@ -117,6 +118,7 @@ function App() {
     return totalAge;
   };
 
+  // function to calculate the number of females in the favorites list
   const calculateTotalFemales = () => {
     if (favoriteUsers.length === 0) {
       return 0;
@@ -133,7 +135,11 @@ function App() {
   return (
     <>
       <div className="ribbon">
-        <img src="contacts-icon-bg.png" className="contacts-logo" />
+        <img
+          src="contacts-icon-bg.png"
+          className="contacts-logo"
+          alt="Contacts logo"
+        />
         <span>MyContacts</span>
       </div>
       {!userData ? (

@@ -116,6 +116,16 @@
   flex-wrap: wrap;
   gap: 1rem;
 }
-.favorite {
-  /* transform: scale(0.5); */
+
+@media (max-width: 900px) {
+  .app-container {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .user-container {
+    border: none;
+  }
+  .favorites-container {
+    border: none;
+  }
 }

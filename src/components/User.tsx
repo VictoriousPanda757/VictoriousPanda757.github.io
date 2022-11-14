@@ -11,9 +11,8 @@ interface Props {
 }
 
 export default function User({ user, favoriteUsers, setFavoriteUsers }: Props) {
+  // state to keep track of whether the user is favorited or not
   const [isFavorite, setIsFavorite] = React.useState(false);
-
-  const toggleFavorite = () => setIsFavorite((favorite) => !favorite);
 
   /**
    * Function to get the month as a string from the month number
@@ -44,8 +43,11 @@ export default function User({ user, favoriteUsers, setFavoriteUsers }: Props) {
     setIsFavorite(favoriteUsers.includes(user));
   }, [favoriteUsers]);
 
+  /**
+   * Function to handle the favorite button click
+   */
   const handleClick = () => {
-    toggleFavorite();
+    setIsFavorite(!isFavorite);
     setFavoriteUsers((favoriteUsers) => {
       if (favoriteUsers.includes(user)) {
         // remove user from favorites
@@ -58,7 +60,6 @@ export default function User({ user, favoriteUsers, setFavoriteUsers }: Props) {
   };
 
   return (
-    // if favorite add a class to the div
     <div className={`user-card ${isFavorite ? "favorite" : ""}`}>
       <img src={user.picture.large} alt="user" />
       <div className="user-text-container">
