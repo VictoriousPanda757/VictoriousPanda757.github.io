@@ -193,17 +193,26 @@ function App() {
 
           <div className="app-container">
             <div className="user-container">
-              <h1>Contact List</h1>
-              <div className="user-item-container">
-                {filteredUsers.map((user, index) => (
-                  <User
-                    user={user}
-                    favoriteUsers={favoriteUsers}
-                    setFavoriteUsers={setFavoriteUsers}
-                    key={index}
-                  />
-                ))}
-              </div>
+              {filteredUsers.length > 0 ? (
+                <>
+                  <h1>Contact List</h1>
+                  <div className="user-item-container">
+                    {filteredUsers.map((user, index) => (
+                      <User
+                        user={user}
+                        favoriteUsers={favoriteUsers}
+                        setFavoriteUsers={setFavoriteUsers}
+                        key={index}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h1>Contact List</h1>
+                  <div>No users found!</div>
+                </>
+              )}
             </div>
             <Favorites
               favoriteUsers={favoriteUsers}
