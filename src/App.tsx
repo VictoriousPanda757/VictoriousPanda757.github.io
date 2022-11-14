@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 import User from "./components/User";
 import IUser from "./types/IUser";
@@ -47,14 +46,8 @@ function App() {
     setFirstNameSort(event.target.value);
   };
 
-  const delay = (ms: any) => new Promise((res) => setTimeout(res, ms));
-
   // useEffect to filter the user data based on filtering and sorting criteria
   useEffect(() => {
-    const waitForAPI = async () => {
-      await delay(1000);
-    };
-    waitForAPI();
     let filteredUsers: IUser[] = [...userData];
     if (!userData.length) {
       console.log("Function returned");
@@ -113,7 +106,7 @@ function App() {
     favoriteUsers,
   ]);
 
-  const calculateAverageAge = () => {
+  const calculateTotalAge = () => {
     if (favoriteUsers.length === 0) {
       return 0;
     }
@@ -121,7 +114,7 @@ function App() {
     favoriteUsers.forEach((user) => {
       totalAge += user.dob.age;
     });
-    return totalAge / favoriteUsers.length;
+    return totalAge;
   };
 
   const calculateTotalFemales = () => {
@@ -225,8 +218,8 @@ function App() {
                 {filteredUsers.map((user, index) => (
                   <User
                     user={user}
+                    favoriteUsers={favoriteUsers}
                     setFavoriteUsers={setFavoriteUsers}
-                    favorite={false}
                     key={index}
                   />
                 ))}
@@ -249,7 +242,12 @@ function App() {
                 <br />
                 Total Users: {userData.length}
                 <br />
-                Average Age of Favorites: {calculateAverageAge()}
+                Average Age of Favorites: {calculateTotalAge()}
+                <br />
+                Average Age of Favorites:{" "}
+                {calculateTotalAge() > 0
+                  ? calculateTotalAge() / favoriteUsers.length
+                  : 0}
                 <br />
                 Total Number of Females in Favorites: {calculateTotalFemales()}
                 <br />
@@ -260,8 +258,8 @@ function App() {
                 {favoriteUsers.map((user, index) => (
                   <User
                     user={user}
+                    favoriteUsers={favoriteUsers}
                     setFavoriteUsers={setFavoriteUsers}
-                    favorite={true}
                     key={index}
                   />
                 ))}

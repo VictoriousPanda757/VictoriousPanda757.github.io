@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import IUser from "../types/IUser";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -6,12 +6,12 @@ import { Button } from "@mui/material";
 
 interface Props {
   user: IUser;
+  favoriteUsers: IUser[];
   setFavoriteUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
-  favorite: boolean;
 }
 
-export default function User({ user, setFavoriteUsers, favorite }: Props) {
-  const [isFavorite, setIsFavorite] = React.useState(favorite);
+export default function User({ user, favoriteUsers, setFavoriteUsers }: Props) {
+  const [isFavorite, setIsFavorite] = React.useState(false);
 
   const toggleFavorite = () => setIsFavorite((favorite) => !favorite);
 
@@ -39,8 +39,13 @@ export default function User({ user, setFavoriteUsers, favorite }: Props) {
     return `${stringMonth} ${day}, ${year}`;
   };
 
+  // useEffect to determine the initial favorite state of the user
+  useEffect(() => {
+    setIsFavorite(favoriteUsers.includes(user));
+  }, [favoriteUsers]);
+
   const handleClick = () => {
-    // toggleFavorite();
+    toggleFavorite();
     setFavoriteUsers((favoriteUsers) => {
       if (favoriteUsers.includes(user)) {
         // remove user from favorites
