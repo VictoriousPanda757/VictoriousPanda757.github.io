@@ -1,13 +1,12 @@
-import React from "react";
+import Checkbox from "@mui/material/Checkbox";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import FormLabel from "@mui/material/FormLabel";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import Checkbox from "@mui/material/Checkbox";
+import React from "react";
 
 interface Props {
   firstNameFilter: {
@@ -54,15 +53,17 @@ export default function FormControls({
   firstNameSort,
   handleFirstNameSort,
 }: Props) {
-  // Desctructure the filters
+  // destructure the filters
   const { firstNameAToF, firstNameGToL, firstNameMToR, firstNameSToZ } =
     firstNameFilter;
   const { lastNameAToF, lastNameGToL, lastNameMToR, lastNameSToZ } =
     lastNameFilter;
   const { stateAToF, stateGToL, stateMToR, stateSToZ } = stateFilter;
   const { age0To20, age21To40, age41To60, age61Plus } = ageFilter;
+
   return (
     <div className="form-container">
+      {/* First name filter */}
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
         <FormLabel component="legend">Filter by First Name</FormLabel>
         <FormGroup>
@@ -109,6 +110,7 @@ export default function FormControls({
         </FormGroup>
       </FormControl>
 
+      {/* Last name filter */}
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
         <FormLabel component="legend">Filter by Last Name</FormLabel>
         <FormGroup>
@@ -155,6 +157,7 @@ export default function FormControls({
         </FormGroup>
       </FormControl>
 
+      {/* State filter */}
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
         <FormLabel component="legend">Filter by State</FormLabel>
         <FormGroup>
@@ -201,6 +204,7 @@ export default function FormControls({
         </FormGroup>
       </FormControl>
 
+      {/* Age filter */}
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
         <FormLabel component="legend">Filter by Age</FormLabel>
         <FormGroup>
@@ -247,6 +251,7 @@ export default function FormControls({
         </FormGroup>
       </FormControl>
 
+      {/* First name sort */}
       <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
         <InputLabel id="demo-simple-select-standard-label">
           Sort by First Name

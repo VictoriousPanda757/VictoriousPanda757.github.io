@@ -20,28 +20,6 @@ function App() {
   }, []);
 
   // state to hold the filter values
-  // const [firstNameFilter, setFirstNameFilter] = useState<string>("0");
-  // const [lastNameFilter, setLastNameFilter] = useState<string>("0");
-  // const [stateFilter, setStateFilter] = useState<string>("0");
-
-  // state to hold the sort values
-  const [firstNameSort, setFirstNameSort] = useState<string>("0");
-
-  // functions to handle form changes
-  // const handleFirstNameFilter = (event: SelectChangeEvent) => {
-  //   setFirstNameFilter(event.target.value);
-  // };
-  // const handleLastNameFilter = (event: SelectChangeEvent) => {
-  //   setLastNameFilter(event.target.value);
-  // };
-  // const handleStateFilter = (event: SelectChangeEvent) => {
-  //   setStateFilter(event.target.value);
-  // };
-  const handleFirstNameSort = (event: SelectChangeEvent) => {
-    setFirstNameSort(event.target.value);
-  };
-
-  // ====================== BEGIN ======================
   const [firstNameFilter, setFirstNameFilter] = useState({
     firstNameAToF: false,
     firstNameGToL: false,
@@ -67,6 +45,10 @@ function App() {
     age61Plus: false,
   });
 
+  // state to hold the sort values
+  const [firstNameSort, setFirstNameSort] = useState<string>("0");
+
+  // functions to handle form changes for filtering and sorting
   const handleFirstNameFilter = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -93,8 +75,9 @@ function App() {
       [event.target.name]: event.target.checked,
     });
   };
-
-  // ====================== END ======================
+  const handleFirstNameSort = (event: SelectChangeEvent) => {
+    setFirstNameSort(event.target.value);
+  };
 
   return (
     <>
@@ -111,8 +94,6 @@ function App() {
       ) : (
         <div className="button-container">
           <FormControls
-            // realFirstNameFilter={realFirstNameFilter}
-            // handleFirstNameFilterChange={handleFirstNameFilterChange}
             firstNameFilter={firstNameFilter}
             handleFirstNameFilter={handleFirstNameFilter}
             lastNameFilter={lastNameFilter}
