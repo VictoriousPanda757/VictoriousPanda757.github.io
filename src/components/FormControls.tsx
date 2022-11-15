@@ -11,6 +11,8 @@ interface Props {
   handleLastNameFilter: (event: SelectChangeEvent) => void;
   stateFilter: string;
   handleStateFilter: (event: SelectChangeEvent) => void;
+  ageFilter: string;
+  handleAgeFilter: (event: SelectChangeEvent) => void;
   firstNameSort: string;
   handleFirstNameSort: (event: SelectChangeEvent) => void;
 }
@@ -22,6 +24,8 @@ export default function FormControls({
   handleLastNameFilter,
   stateFilter,
   handleStateFilter,
+  ageFilter,
+  handleAgeFilter,
   firstNameSort,
   handleFirstNameSort,
 }: Props) {
@@ -79,6 +83,24 @@ export default function FormControls({
           <MenuItem value={2}>G-L</MenuItem>
           <MenuItem value={3}>M-R</MenuItem>
           <MenuItem value={4}>S-Z</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+        <InputLabel id="demo-simple-select-standard-label">
+          Filter by Age
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={ageFilter}
+          onChange={handleAgeFilter}
+          label="Age Filter"
+        >
+          <MenuItem value={0}>All</MenuItem>
+          <MenuItem value={1}>0-20</MenuItem>
+          <MenuItem value={2}>21-40</MenuItem>
+          <MenuItem value={3}>41-60</MenuItem>
+          <MenuItem value={4}>61+</MenuItem>
         </Select>
       </FormControl>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>

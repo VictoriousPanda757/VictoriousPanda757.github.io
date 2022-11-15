@@ -7,6 +7,7 @@ interface Props {
   firstNameFilter: string;
   lastNameFilter: string;
   stateFilter: string;
+  ageFilter: string;
   firstNameSort: string;
   filteredUsers: IUser[];
   setFilteredUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
@@ -19,6 +20,7 @@ export default function FilteredList({
   firstNameFilter,
   lastNameFilter,
   stateFilter,
+  ageFilter,
   firstNameSort,
   filteredUsers,
   setFilteredUsers,
@@ -68,6 +70,27 @@ export default function FilteredList({
         );
       });
     }
+    console.log(ageFilter);
+    // Filter by age
+    if (ageFilter != "0") {
+      if (ageFilter == "1") {
+        filteredUsers = filteredUsers.filter((user) => user.dob.age <= 20);
+      } else if (ageFilter == "2") {
+        filteredUsers = filteredUsers.filter(
+          (user) => user.dob.age >= 21 && user.dob.age <= 40
+        );
+      } else if (ageFilter == "3") {
+        filteredUsers = filteredUsers.filter(
+          (user) => user.dob.age >= 41 && user.dob.age <= 60
+        );
+      } else if (ageFilter == "4") {
+        filteredUsers = filteredUsers.filter((user) => user.dob.age > 60);
+      } else {
+        console.log("Error with age filter");
+        return;
+      }
+    }
+
     // Sort by first name
     if (Number(firstNameSort) !== 0) {
       filteredUsers = filteredUsers.sort((a, b) => {
@@ -83,6 +106,7 @@ export default function FilteredList({
     firstNameFilter,
     lastNameFilter,
     stateFilter,
+    ageFilter,
     firstNameSort,
     userData,
     favoriteUsers,

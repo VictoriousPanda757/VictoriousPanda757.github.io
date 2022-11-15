@@ -23,6 +23,7 @@ function App() {
   const [firstNameFilter, setFirstNameFilter] = useState<string>("0");
   const [lastNameFilter, setLastNameFilter] = useState<string>("0");
   const [stateFilter, setStateFilter] = useState<string>("0");
+  const [ageFilter, setAgeFilter] = useState<string>("0");
 
   // state to hold the sort values
   const [firstNameSort, setFirstNameSort] = useState<string>("0");
@@ -36,6 +37,9 @@ function App() {
   };
   const handleStateFilter = (event: SelectChangeEvent) => {
     setStateFilter(event.target.value);
+  };
+  const handleAgeFilter = (event: SelectChangeEvent) => {
+    setAgeFilter(event.target.value);
   };
   const handleFirstNameSort = (event: SelectChangeEvent) => {
     setFirstNameSort(event.target.value);
@@ -62,6 +66,8 @@ function App() {
             handleLastNameFilter={handleLastNameFilter}
             stateFilter={stateFilter}
             handleStateFilter={handleStateFilter}
+            ageFilter={ageFilter}
+            handleAgeFilter={handleAgeFilter}
             firstNameSort={firstNameSort}
             handleFirstNameSort={handleFirstNameSort}
           />
@@ -71,6 +77,7 @@ function App() {
               firstNameFilter={firstNameFilter}
               lastNameFilter={lastNameFilter}
               stateFilter={stateFilter}
+              ageFilter={ageFilter}
               firstNameSort={firstNameSort}
               filteredUsers={filteredUsers}
               setFilteredUsers={setFilteredUsers}
