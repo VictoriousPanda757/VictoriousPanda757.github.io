@@ -70,6 +70,8 @@ export default function User({ user, favoriteUsers, setFavoriteUsers }: Props) {
         </p>
         <p>
           <strong>Birthday:</strong> {formatDate(user.dob.date)}
+          <br />
+          <strong>Age:</strong> {user.dob.age}
         </p>
         <p>
           <strong>Location:</strong> {user.location.street.number}{" "}
