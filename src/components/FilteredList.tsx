@@ -4,9 +4,30 @@ import IUser from "../types/IUser";
 
 interface Props {
   userData: IUser[];
-  firstNameFilter: string;
-  lastNameFilter: string;
-  stateFilter: string;
+  firstNameFilter: {
+    firstNameAToF: boolean;
+    firstNameGToL: boolean;
+    firstNameMToR: boolean;
+    firstNameSToZ: boolean;
+  };
+  lastNameFilter: {
+    lastNameAToF: boolean;
+    lastNameGToL: boolean;
+    lastNameMToR: boolean;
+    lastNameSToZ: boolean;
+  };
+  stateFilter: {
+    stateAToF: boolean;
+    stateGToL: boolean;
+    stateMToR: boolean;
+    stateSToZ: boolean;
+  };
+  ageFilter: {
+    age0To20: boolean;
+    age21To40: boolean;
+    age41To60: boolean;
+    age61Plus: boolean;
+  };
   firstNameSort: string;
   filteredUsers: IUser[];
   setFilteredUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
@@ -19,6 +40,7 @@ export default function FilteredList({
   firstNameFilter,
   lastNameFilter,
   stateFilter,
+  ageFilter,
   firstNameSort,
   filteredUsers,
   setFilteredUsers,
@@ -26,7 +48,7 @@ export default function FilteredList({
   setFavoriteUsers,
 }: Props) {
   // array to hold the filter values
-  const filterFirstLetter: string[] = ["All", "A-F", "G-L", "M-R", "S-Z"];
+  const filterFirstLetter: string[] = ["A-F", "G-L", "M-R", "S-Z"];
 
   // useEffect to filter the user data based on filtering and sorting criteria
   useEffect(() => {
@@ -35,39 +57,155 @@ export default function FilteredList({
       console.log("Function returned");
       return;
     }
+
     // Filter by first name
-    if (firstNameFilter !== "0") {
+    if (firstNameFilter.firstNameAToF) {
       filteredUsers = filteredUsers.filter((user) => {
-        const lowerBound = filterFirstLetter[Number(firstNameFilter)].charAt(0);
-        const upperBound = filterFirstLetter[Number(firstNameFilter)].charAt(2);
         return (
-          user.name.first.charAt(0).toUpperCase() >= lowerBound &&
-          user.name.first.charAt(0).toUpperCase() <= upperBound
+          user.name.first[0].toLowerCase() >=
+            filterFirstLetter[0].charAt(0).toLowerCase() &&
+          user.name.first[0].toLowerCase() <=
+            filterFirstLetter[0].charAt(2).toLowerCase()
         );
       });
     }
+    if (firstNameFilter.firstNameGToL) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return (
+          user.name.first[0].toLowerCase() >=
+            filterFirstLetter[1].charAt(0).toLowerCase() &&
+          user.name.first[0].toLowerCase() <=
+            filterFirstLetter[1].charAt(2).toLowerCase()
+        );
+      });
+    }
+    if (firstNameFilter.firstNameMToR) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return (
+          user.name.first[0].toLowerCase() >=
+            filterFirstLetter[2].charAt(0).toLowerCase() &&
+          user.name.first[0].toLowerCase() <=
+            filterFirstLetter[2].charAt(2).toLowerCase()
+        );
+      });
+    }
+    if (firstNameFilter.firstNameSToZ) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return (
+          user.name.first[0].toLowerCase() >=
+            filterFirstLetter[3].charAt(0).toLowerCase() &&
+          user.name.first[0].toLowerCase() <=
+            filterFirstLetter[3].charAt(2).toLowerCase()
+        );
+      });
+    }
+
     // Filter by last name
-    if (lastNameFilter !== "0") {
+    if (lastNameFilter.lastNameAToF) {
       filteredUsers = filteredUsers.filter((user) => {
-        const lowerBound = filterFirstLetter[Number(lastNameFilter)].charAt(0);
-        const upperBound = filterFirstLetter[Number(lastNameFilter)].charAt(2);
         return (
-          user.name.last.charAt(0).toUpperCase() >= lowerBound &&
-          user.name.last.charAt(0).toUpperCase() <= upperBound
+          user.name.last[0].toLowerCase() >=
+            filterFirstLetter[0].charAt(0).toLowerCase() &&
+          user.name.last[0].toLowerCase() <=
+            filterFirstLetter[0].charAt(2).toLowerCase()
         );
       });
     }
+    if (lastNameFilter.lastNameGToL) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return (
+          user.name.last[0].toLowerCase() >=
+            filterFirstLetter[1].charAt(0).toLowerCase() &&
+          user.name.last[0].toLowerCase() <=
+            filterFirstLetter[1].charAt(2).toLowerCase()
+        );
+      });
+    }
+    if (lastNameFilter.lastNameMToR) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return (
+          user.name.last[0].toLowerCase() >=
+            filterFirstLetter[2].charAt(0).toLowerCase() &&
+          user.name.last[0].toLowerCase() <=
+            filterFirstLetter[2].charAt(2).toLowerCase()
+        );
+      });
+    }
+    if (lastNameFilter.lastNameSToZ) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return (
+          user.name.last[0].toLowerCase() >=
+            filterFirstLetter[3].charAt(0).toLowerCase() &&
+          user.name.last[0].toLowerCase() <=
+            filterFirstLetter[3].charAt(2).toLowerCase()
+        );
+      });
+    }
+
     // Filter by state
-    if (stateFilter !== "0") {
+    if (stateFilter.stateAToF) {
       filteredUsers = filteredUsers.filter((user) => {
-        const lowerBound = filterFirstLetter[Number(stateFilter)].charAt(0);
-        const upperBound = filterFirstLetter[Number(stateFilter)].charAt(2);
         return (
-          user.location.state.charAt(0).toUpperCase() >= lowerBound &&
-          user.location.state.charAt(0).toUpperCase() <= upperBound
+          user.location.state[0].toLowerCase() >=
+            filterFirstLetter[0].charAt(0).toLowerCase() &&
+          user.location.state[0].toLowerCase() <=
+            filterFirstLetter[0].charAt(2).toLowerCase()
         );
       });
     }
+    if (stateFilter.stateGToL) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return (
+          user.location.state[0].toLowerCase() >=
+            filterFirstLetter[1].charAt(0).toLowerCase() &&
+          user.location.state[0].toLowerCase() <=
+            filterFirstLetter[1].charAt(2).toLowerCase()
+        );
+      });
+    }
+    if (stateFilter.stateMToR) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return (
+          user.location.state[0].toLowerCase() >=
+            filterFirstLetter[2].charAt(0).toLowerCase() &&
+          user.location.state[0].toLowerCase() <=
+            filterFirstLetter[2].charAt(2).toLowerCase()
+        );
+      });
+    }
+    if (stateFilter.stateSToZ) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return (
+          user.location.state[0].toLowerCase() >=
+            filterFirstLetter[3].charAt(0).toLowerCase() &&
+          user.location.state[0].toLowerCase() <=
+            filterFirstLetter[3].charAt(2).toLowerCase()
+        );
+      });
+    }
+
+    // Filter by age
+    if (ageFilter.age0To20) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return user.dob.age <= 20;
+      });
+    }
+    if (ageFilter.age21To40) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return user.dob.age >= 21 && user.dob.age <= 40;
+      });
+    }
+    if (ageFilter.age41To60) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return user.dob.age >= 41 && user.dob.age <= 60;
+      });
+    }
+    if (ageFilter.age61Plus) {
+      filteredUsers = filteredUsers.filter((user) => {
+        return user.dob.age >= 61;
+      });
+    }
+
     // Sort by first name
     if (Number(firstNameSort) !== 0) {
       filteredUsers = filteredUsers.sort((a, b) => {
@@ -83,6 +221,7 @@ export default function FilteredList({
     firstNameFilter,
     lastNameFilter,
     stateFilter,
+    ageFilter,
     firstNameSort,
     userData,
     favoriteUsers,

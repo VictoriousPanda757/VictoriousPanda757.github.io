@@ -20,26 +20,81 @@ function App() {
   }, []);
 
   // state to hold the filter values
-  const [firstNameFilter, setFirstNameFilter] = useState<string>("0");
-  const [lastNameFilter, setLastNameFilter] = useState<string>("0");
-  const [stateFilter, setStateFilter] = useState<string>("0");
+  // const [firstNameFilter, setFirstNameFilter] = useState<string>("0");
+  // const [lastNameFilter, setLastNameFilter] = useState<string>("0");
+  // const [stateFilter, setStateFilter] = useState<string>("0");
 
   // state to hold the sort values
   const [firstNameSort, setFirstNameSort] = useState<string>("0");
 
   // functions to handle form changes
-  const handleFirstNameFilter = (event: SelectChangeEvent) => {
-    setFirstNameFilter(event.target.value);
-  };
-  const handleLastNameFilter = (event: SelectChangeEvent) => {
-    setLastNameFilter(event.target.value);
-  };
-  const handleStateFilter = (event: SelectChangeEvent) => {
-    setStateFilter(event.target.value);
-  };
+  // const handleFirstNameFilter = (event: SelectChangeEvent) => {
+  //   setFirstNameFilter(event.target.value);
+  // };
+  // const handleLastNameFilter = (event: SelectChangeEvent) => {
+  //   setLastNameFilter(event.target.value);
+  // };
+  // const handleStateFilter = (event: SelectChangeEvent) => {
+  //   setStateFilter(event.target.value);
+  // };
   const handleFirstNameSort = (event: SelectChangeEvent) => {
     setFirstNameSort(event.target.value);
   };
+
+  // ====================== BEGIN ======================
+  const [firstNameFilter, setFirstNameFilter] = useState({
+    firstNameAToF: false,
+    firstNameGToL: false,
+    firstNameMToR: false,
+    firstNameSToZ: false,
+  });
+  const [lastNameFilter, setLastNameFilter] = useState({
+    lastNameAToF: false,
+    lastNameGToL: false,
+    lastNameMToR: false,
+    lastNameSToZ: false,
+  });
+  const [stateFilter, setStateFilter] = useState({
+    stateAToF: false,
+    stateGToL: false,
+    stateMToR: false,
+    stateSToZ: false,
+  });
+  const [ageFilter, setAgeFilter] = useState({
+    age0To20: false,
+    age21To40: false,
+    age41To60: false,
+    age61Plus: false,
+  });
+
+  const handleFirstNameFilter = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFirstNameFilter({
+      ...firstNameFilter,
+      [event.target.name]: event.target.checked,
+    });
+  };
+  const handleLastNameFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLastNameFilter({
+      ...lastNameFilter,
+      [event.target.name]: event.target.checked,
+    });
+  };
+  const handleStateFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStateFilter({
+      ...stateFilter,
+      [event.target.name]: event.target.checked,
+    });
+  };
+  const handleAgeFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAgeFilter({
+      ...ageFilter,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  // ====================== END ======================
 
   return (
     <>
@@ -56,12 +111,16 @@ function App() {
       ) : (
         <div className="button-container">
           <FormControls
+            // realFirstNameFilter={realFirstNameFilter}
+            // handleFirstNameFilterChange={handleFirstNameFilterChange}
             firstNameFilter={firstNameFilter}
             handleFirstNameFilter={handleFirstNameFilter}
             lastNameFilter={lastNameFilter}
             handleLastNameFilter={handleLastNameFilter}
             stateFilter={stateFilter}
             handleStateFilter={handleStateFilter}
+            ageFilter={ageFilter}
+            handleAgeFilter={handleAgeFilter}
             firstNameSort={firstNameSort}
             handleFirstNameSort={handleFirstNameSort}
           />
@@ -71,6 +130,7 @@ function App() {
               firstNameFilter={firstNameFilter}
               lastNameFilter={lastNameFilter}
               stateFilter={stateFilter}
+              ageFilter={ageFilter}
               firstNameSort={firstNameSort}
               filteredUsers={filteredUsers}
               setFilteredUsers={setFilteredUsers}
