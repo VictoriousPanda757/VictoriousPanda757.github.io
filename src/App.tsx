@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import User from "./components/User";
 import Favorites from "./components/Favorites";
+import FormControls from "./components/FormControls";
 import IUser from "./types/IUser";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -120,77 +121,16 @@ function App() {
         <div>Loading...</div>
       ) : (
         <div className="button-container">
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-            <InputLabel id="demo-simple-select-standard-label">
-              Filter by First Name
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={firstNameFilter}
-              onChange={handleFirstNameFilter}
-              label="First Name Filter"
-            >
-              <MenuItem value={0}>All</MenuItem>
-              <MenuItem value={1}>A-F</MenuItem>
-              <MenuItem value={2}>G-L</MenuItem>
-              <MenuItem value={3}>M-R</MenuItem>
-              <MenuItem value={4}>S-Z</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-            <InputLabel id="demo-simple-select-standard-label">
-              Filter by Last Name
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={lastNameFilter}
-              onChange={handleLastNameFilter}
-              label="Last Name Filter"
-            >
-              <MenuItem value={0}>All</MenuItem>
-              <MenuItem value={1}>A-F</MenuItem>
-              <MenuItem value={2}>G-L</MenuItem>
-              <MenuItem value={3}>M-R</MenuItem>
-              <MenuItem value={4}>S-Z</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-            <InputLabel id="demo-simple-select-standard-label">
-              Filter by State
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={stateFilter}
-              onChange={handleStateFilter}
-              label="State Filter"
-            >
-              <MenuItem value={0}>All</MenuItem>
-              <MenuItem value={1}>A-F</MenuItem>
-              <MenuItem value={2}>G-L</MenuItem>
-              <MenuItem value={3}>M-R</MenuItem>
-              <MenuItem value={4}>S-Z</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-            <InputLabel id="demo-simple-select-standard-label">
-              Sort by First Name
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={firstNameSort}
-              onChange={handleFirstNameSort}
-              label="Sort by First Name"
-            >
-              <MenuItem value={0}>None</MenuItem>
-              <MenuItem value={1}>Ascending</MenuItem>
-              <MenuItem value={2}>Descending</MenuItem>
-            </Select>
-          </FormControl>
-
+          <FormControls
+            firstNameFilter={firstNameFilter}
+            handleFirstNameFilter={handleFirstNameFilter}
+            lastNameFilter={lastNameFilter}
+            handleLastNameFilter={handleLastNameFilter}
+            stateFilter={stateFilter}
+            handleStateFilter={handleStateFilter}
+            firstNameSort={firstNameSort}
+            handleFirstNameSort={handleFirstNameSort}
+          />
           <div className="app-container">
             <div className="user-container">
               {filteredUsers.length > 0 ? (
