@@ -217,6 +217,7 @@ export default function FilteredList({
       });
     }
     setFilteredUsers(filteredUsers);
+    console.log("NEW FILTERED USERS", filteredUsers);
   }, [
     firstNameFilter,
     lastNameFilter,

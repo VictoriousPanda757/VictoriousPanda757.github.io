@@ -11,9 +11,6 @@ interface Props {
 }
 
 export default function User({ user, favoriteUsers, setFavoriteUsers }: Props) {
-  // state to keep track of whether the user is favorited or not
-  const [isFavorite, setIsFavorite] = React.useState(false);
-
   /**
    * Function to get the month as a string from the month number
    * @param monthNumber the month as a number
@@ -38,16 +35,11 @@ export default function User({ user, favoriteUsers, setFavoriteUsers }: Props) {
     return `${stringMonth} ${day}, ${year}`;
   };
 
-  // useEffect to determine the initial favorite state of the user
-  useEffect(() => {
-    setIsFavorite(favoriteUsers.includes(user));
-  }, [favoriteUsers]);
-
   /**
    * Function to handle the favorite button click
    */
   const handleClick = () => {
-    setIsFavorite(!isFavorite);
+    // setIsFavorite(!isFavorite);
     setFavoriteUsers((favoriteUsers) => {
       if (favoriteUsers.includes(user)) {
         // remove user from favorites
@@ -60,7 +52,9 @@ export default function User({ user, favoriteUsers, setFavoriteUsers }: Props) {
   };
 
   return (
-    <div className={`user-card ${isFavorite ? "favorite" : ""}`}>
+    <div
+      className={`user-card ${favoriteUsers.includes(user) ? "favorite" : ""}`}
+    >
       <img src={user.picture.large} alt="user" />
       <div className="user-text-container">
         <h1>
@@ -86,7 +80,7 @@ export default function User({ user, favoriteUsers, setFavoriteUsers }: Props) {
           {user.location.country}, {user.location.postcode}
         </p>
 
-        {!isFavorite ? (
+        {!favoriteUsers.includes(user) ? (
           <Button variant="contained" onClick={handleClick}>
             Add to Favorites
             <FavoriteBorderIcon className="favorite-icon" />
