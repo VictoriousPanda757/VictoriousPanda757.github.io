@@ -6,29 +6,45 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface Props {
   firstNameFilter: string;
-  handleFirstNameFilter: (event: SelectChangeEvent) => void;
+  setFirstNameFilter: React.Dispatch<React.SetStateAction<string>>;
   lastNameFilter: string;
-  handleLastNameFilter: (event: SelectChangeEvent) => void;
+  setLastNameFilter: React.Dispatch<React.SetStateAction<string>>;
   stateFilter: string;
-  handleStateFilter: (event: SelectChangeEvent) => void;
+  setStateFilter: React.Dispatch<React.SetStateAction<string>>;
   ageFilter: string;
-  handleAgeFilter: (event: SelectChangeEvent) => void;
+  setAgeFilter: React.Dispatch<React.SetStateAction<string>>;
   firstNameSort: string;
-  handleFirstNameSort: (event: SelectChangeEvent) => void;
+  setFirstNameSort: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function FormControls({
   firstNameFilter,
-  handleFirstNameFilter,
+  setFirstNameFilter,
   lastNameFilter,
-  handleLastNameFilter,
+  setLastNameFilter,
   stateFilter,
-  handleStateFilter,
+  setStateFilter,
   ageFilter,
-  handleAgeFilter,
+  setAgeFilter,
   firstNameSort,
-  handleFirstNameSort,
+  setFirstNameSort,
 }: Props) {
+  // functions to handle form changes
+  const handleFirstNameFilter = (event: SelectChangeEvent) => {
+    setFirstNameFilter(event.target.value);
+  };
+  const handleLastNameFilter = (event: SelectChangeEvent) => {
+    setLastNameFilter(event.target.value);
+  };
+  const handleStateFilter = (event: SelectChangeEvent) => {
+    setStateFilter(event.target.value);
+  };
+  const handleAgeFilter = (event: SelectChangeEvent) => {
+    setAgeFilter(event.target.value);
+  };
+  const handleFirstNameSort = (event: SelectChangeEvent) => {
+    setFirstNameSort(event.target.value);
+  };
   return (
     <>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>

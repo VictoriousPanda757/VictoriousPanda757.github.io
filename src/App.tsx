@@ -28,23 +28,6 @@ function App() {
   // state to hold the sort values
   const [firstNameSort, setFirstNameSort] = useState<string>("0");
 
-  // functions to handle form changes
-  const handleFirstNameFilter = (event: SelectChangeEvent) => {
-    setFirstNameFilter(event.target.value);
-  };
-  const handleLastNameFilter = (event: SelectChangeEvent) => {
-    setLastNameFilter(event.target.value);
-  };
-  const handleStateFilter = (event: SelectChangeEvent) => {
-    setStateFilter(event.target.value);
-  };
-  const handleAgeFilter = (event: SelectChangeEvent) => {
-    setAgeFilter(event.target.value);
-  };
-  const handleFirstNameSort = (event: SelectChangeEvent) => {
-    setFirstNameSort(event.target.value);
-  };
-
   return (
     <>
       <div className="ribbon">
@@ -61,15 +44,15 @@ function App() {
         <div className="button-container">
           <FormControls
             firstNameFilter={firstNameFilter}
-            handleFirstNameFilter={handleFirstNameFilter}
+            setFirstNameFilter={setFirstNameFilter}
             lastNameFilter={lastNameFilter}
-            handleLastNameFilter={handleLastNameFilter}
+            setLastNameFilter={setLastNameFilter}
             stateFilter={stateFilter}
-            handleStateFilter={handleStateFilter}
+            setStateFilter={setStateFilter}
             ageFilter={ageFilter}
-            handleAgeFilter={handleAgeFilter}
+            setAgeFilter={setAgeFilter}
             firstNameSort={firstNameSort}
-            handleFirstNameSort={handleFirstNameSort}
+            setFirstNameSort={setFirstNameSort}
           />
           <div className="app-container">
             <FilteredList
